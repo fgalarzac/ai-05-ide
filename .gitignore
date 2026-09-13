@@ -18,3 +18,11 @@ DNI*
 
 # The article itself: third-party PDF, fetch it from arXiv
 paper/*.pdf
+
+# Stage 1: source PDFs and machine-local artifacts are not public deliverables.
+*.pdf
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*

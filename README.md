@@ -1,103 +1,26 @@
-# Repository 1 — Aouad, Lykouris & Zhong (2026)
+> **Version read:** the supplied v12 PDF, **39 pages, May 20, 2025**; byte-identical to current [arXiv v12](https://arxiv.org/abs/2312.05481v12), submitted May 17. The course's stated PDF URL returned 404, so a course-copy identity check was unavailable. I also checked Propositions 1-6 against v11 (35 pages, February 25, 2025); their statements match. This does not establish equivalence of other text or proofs.
 
-*Human-AI Productivity Paradoxes: Modeling the Interplay of Skill, Effort, and AI Assistance*
-[arXiv:2605.11350](https://arxiv.org/abs/2605.11350) · [cs.GT]
+# Artificial Intelligence in the Knowledge Economy
 
-> **This is the worked example** for *Artificial Intelligence and Economic
-> Modeling* (UP 2026-II). It shows what a weekly repository looks like when it is
-> done well. Yours does not have to be this long — see "What is required" below.
+**Ide, E., & Talamàs, E. (2025).** *Journal of Political Economy*, **133**(12), 3762-3800. [DOI: 10.1086/737233](https://doi.org/10.1086/737233).
 
----
+**PAPER — Question and problem.** How does scalable AI knowledge reorganize workers, solvers, their matches, and labor income? Humans maximize income; competitive firms choose their configuration and worker/solver knowledge to maximize expected output less wages and compute rent. Humans have unit time and knowledge distributed with continuous, strictly positive density on [0,1]; problems have difficulty U[0,1]. A worker of knowledge z requires h(1-z) solver time, so n(z)=1/[h(1-z)]. Firms have at most two layers, complete information, free entry, and zero profits. Their possible profits, with a=z_AI and z≤s, are
 
-## What question the paper answers
+$$z-w(z),\quad a-r,\quad n(z)[s-w(z)]-w(s),\quad n(z)[a-w(z)]-r\ (z\le a),\quad n(a)[s-r]-w(s)\ (a\le s).$$
 
-When does AI assistance make a worker **less** productive?
+Human and compute markets clear. Production opportunities exceed resources; compute is abundant relative to human time. For the results below, **0<h<h₀(G), 0≤a<1**, with the same compute supply in both AI regimes. No-AI occupations obey W⪯S and w(z)>z; human matching is strictly positive assortative. Autonomous AI can occupy all roles; residual independent AI production pins r*=a and w*(a)=a<w(a). Non-autonomous AI can only solve; idle compute pins r⋆=0. These are separate restrictions from capability.
 
-The paper picks one mechanism and pushes it: AI is a **perfectly substitutable
-input**. Skill $s$, effort $e$ and assistance $a$ enter production only through
-their sum, $x = s + e + a$. Nothing else is going on — no learning, no
-complementarity, no contracting. Everything that follows comes from that single
-modelling choice plus a linear cost of effort.
+**PAPER — Proposition 5, fully stated.** Define B={z∈[0,a]:w*(z)>w(z)} and T={z∈[a,1]:w*(z)>w(z)}. There exists **ā∈int W** such that **B≠∅ iff a>ā**; **T≠∅ for every a∈[0,1)**. Winners, when present, occupy bottom and top intervals; the matching type a loses. Strict equality a=ā gives no bottom winners. The all-capabilities top result requires h<h₀ and excludes a=1.
 
-## The agent's problem
+**PAPER — Proposition 6, fully stated.** Non-autonomous equilibrium is unique, efficient, maximizes labor income, and has r⋆=0. If a≤w(0), AI is unused and human wages and occupations remain pre-AI. If a>w(0), W⋆ₐ⪯(W⋆ₚ∪I⋆∪S⋆ₚ), with all these sets nonempty except possibly I⋆: only the least knowledgeable use AI solvers. In every case:
 
-$$\max_{e \ge 0}\; p(s+e+a) - \gamma e$$
+1. Output is strictly higher with autonomous AI.
+2. Some z∈(0,1] satisfies w⋆(z)≤w(z), strictly when a>w(0).
+3. Some ε>0 satisfies w⋆(z)≥max{w(z),w*(z)} for every z∈[0,ε), strictly when a>w(0).
+4. Some ε>0 satisfies w⋆(z)≤w*(z) for every z∈(1−ε,1], strictly for z≠1. The statement allows equality at 1.
 
-with $p$ weakly increasing, concave and twice differentiable, $\gamma > 0$, and
-one constraint that turns out to carry the whole result: $e \ge 0$.
+**INTERPRETATION — The trap.** The ā threshold concerns **capability conditional on autonomy**; autonomy separately changes feasible roles and rent. Thus both dimensions matter. Even some *basic* autonomous AI (ā<a<sup W) benefits the bottom. “Autonomy, not capability” is incorrect; “only advanced AI benefits the bottom” is also incorrect. Section 7's broad language does not override these qualifications.
 
-## The main result, with all its conditions
+**DERIVATION — Numerical illustrations, not proofs.** [sim.py](sim.py) reproduces wage comparisons underlying Figures [3](figures/fig03.png), [4](figures/fig04.png), [5](figures/fig05.png), [7](figures/fig07.png), and [9](figures/fig09.png), using G(z)=z, h=0.5, a=0.425/0.85 and abundant μ=5; Figure 3 also uses h=0.8125. The [capability scan](figures/capability_threshold.png) gives ā≈0.715, below the pre-AI split ≈0.764; non-autonomous adoption instead starts above w(0)≈0.358. These are grid approximations.
 
-Let $x^{*}$ be the **largest** maximiser of $p(x) - \gamma x$:
-
-$$x^{*} = \max \arg\max_{x} \left[\, p(x) - \gamma x \,\right]$$
-
-This requires a **regularity condition**, without which $x^{*}$ need not exist:
-
-$$\limsup_{x \to \infty} \frac{p(x)}{x} < \gamma$$
-
-**Proposition 2.1.** Under those conditions,
-
-$$e^{*}(s,a) = \left(x^{*} - s - a\right)_{+}, \qquad
-  p^{*}(s,a) = \max\left\{ p(x^{*}),\, p(s+a) \right\}$$
-
-*Intuition in one sentence:* the agent has a single target level of total input,
-tops it up with effort, and once skill plus AI already reach it he stops working.
-
-Two things worth noticing about the proof. It is a **case split** — interior
-versus corner — and contains **no differentiation at all**; and the largest-argmax
-tie-break is not decoration, it is what makes $e^{*}$ well defined when
-$p(x)-\gamma x$ has a flat maximum.
-
-## Sections 3–5: stated, not derived
-
-The three headline results — the deskilling paradox, the unreliability paradox
-and skill polarisation — use machinery well beyond Section 2: a continuous-time
-birth–death Markov chain and its steady state, Arrow–Pratt risk aversion applied
-to a *production* function with IARA/DARA driving the sign, and Bayesian updating
-over a binary signal. They are worth understanding; they are not worth trying to
-reproduce in a week. See `extra/tutorial-alz-completo.pdf` for the full walk.
-
----
-
-## What is in this repository
-
-| File | What it is |
-|---|---|
-| `README.md` | This page |
-| `prompts.md` | The full LLM conversation, unedited |
-| `extensions.md` | Which assumptions could be relaxed, and which are dead ends |
-| `hand/` | The derivation of Proposition 2.1, written out by hand |
-| `presentation.tex` / `.pdf` | The 5-minute Beamer deck |
-| `paper/` | The article itself |
-| `extra/` | Above the floor: a full tutorial of the paper and two lecture decks |
-
-## What is required
-
-Only four things. The rest of this repository is above the floor.
-
-1. **`README.md`** — one page: the question, the agent's problem, the main result
-   **with all its conditions**.
-2. **`prompts.md`** — your prompts and the answers, **raw**. Do not tidy them up:
-   the value is in seeing where the model went wrong.
-3. **`hand/`** — at least one photograph of something you derived by hand. Not the
-   whole paper: the one step you did not believe until you did it yourself.
-4. **`presentation.tex` / `.pdf`** — the 5-minute deck, source and compiled.
-
-Deadline is **Thursday 22:00**, work merged into `main` through a pull request,
-and the repository URL posted as a comment on that week's issue.
-
-## About `hand/`
-
-`hand/prop-2-1-derivacion-a-mano.pdf` is three phone photos of a notebook page.
-That is exactly the standard: crooked, with crossings-out, no transcription. What
-it shows is the first-order condition and the interior-versus-corner split written
-out step by step — the part I did not want to take on trust.
-
-## About the LLM conversation
-
-`prompts.md` is the export of the session that produced the tutorial in `extra/`.
-Read it for what it gets wrong as much as for what it gets right. The episode
-worth studying is on slide 4 of the presentation: asked for "the most natural
-extension", the model confidently proposed relaxing the linear cost — which the
-authors had already done in Appendix D. It took opening the appendix to find out.
+Run `python -m pip install -r requirements.txt`, then `python sim.py --n 401`. [Analysis](analysis.md) explains mechanisms, discrete structure and checks; [extensions](extensions.md) distinguishes our query-time and ownership experiments from author-flagged extensions. [Raw prompt/output](prompts.md) preserves the calculation error and correction. The handwritten photo is [pending](hand/PENDING.md).
